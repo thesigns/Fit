@@ -37,6 +37,9 @@ public class Help : Command
             case "weight":
                 Console.WriteLine(Weight.Manual);
                 break;
+            case "mood":
+                Console.WriteLine(Mood.Manual);
+                break;
             case "undo":
                 Console.WriteLine(Undo.Manual);
                 break;

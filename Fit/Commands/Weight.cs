@@ -32,7 +32,7 @@ public class Weight : Command
         try
         {
             var fit = new Fit(repo);
-            var previous = fit.Weight.Last();
+            var previous = fit.Weights.Last();
             var weight = Units.GetMeasurement<Units.Mass>(args[0]);
             Console.WriteLine($"Previous weight: {previous.weight} kg ({Units.TicksToDate(previous.tick)})");
             var differenceValue = Math.Round(weight - previous.weight, 3);
@@ -57,7 +57,7 @@ public class Weight : Command
         try
         {
             var weight = Units.GetMeasurement<Units.Mass>(args[0]);
-            fit.Weight.Add((tick, weight));
+            fit.Weights.Add((tick, weight));
         }
         catch
         {

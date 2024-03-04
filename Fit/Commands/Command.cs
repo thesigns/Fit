@@ -48,9 +48,13 @@ public abstract class Command
             case "weight":
                 logLine = new Weight().Execute(args, repo);
                 break;
+            case "mood":
+                logLine = new Mood().Execute(args, repo);
+                break;
             case "undo":
                 logLine = new Undo().Execute(args, repo);
                 break;
+
         }
         repo.Log(logLine);
     }
@@ -66,9 +70,13 @@ public abstract class Command
             case "height":
                 new Height().ApplyToFit(tick, command,args, fit);
                 return;
+            case "mood":
+                new Mood().ApplyToFit(tick, command,args, fit);
+                return;
             case "weight":
                 new Weight().ApplyToFit(tick, command,args, fit);
                 return;
+
         }
         throw new ArgumentException("Unsupported command line");
     }

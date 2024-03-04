@@ -60,7 +60,7 @@ public class Height : Command
         try
         {
             var height = Units.GetMeasurement<Units.Length>(args[0]);
-            fit.Height.Add((tick, height));
+            fit.Heights.Add((tick, height));
         }
         catch
         {

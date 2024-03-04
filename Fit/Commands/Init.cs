@@ -78,8 +78,8 @@ public class Init : Command
             var weight = Units.GetMeasurement<Units.Mass>(args[3]);
             fit.Birth = birthTick;
             fit.Sex = sex;
-            fit.Height.Add((tick, height));
-            fit.Weight.Add((tick, weight));
+            fit.Heights.Add((tick, height));
+            fit.Weights.Add((tick, weight));
         }
         catch
         {

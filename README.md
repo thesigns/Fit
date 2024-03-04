@@ -38,6 +38,34 @@ To store changes in your weight or height (noting that height changes are less f
      fit weight 107.6kg
      fit height 175.5cm
 
+### Storing Mood
+
+To store changes in your emotional state, you can use the `fit mood` command. Emotions are stored using traditional western emoticons. Allowed emoticons:
+
+    :((( - Extremely Sad
+    :((  - Very Sad
+    :(   - Sad
+    :|   - Indifferet
+    :)   - Happy
+    :))  - Very Happy
+    :))) - Extremely Happy
+    >:[  - Angry
+    :'(  - Crying
+    :<   - Disappointed
+    :S   - Confused
+    :O   - Surprised
+    :P   - Playful
+    :*   - Affectionate
+    <3   - In Love
+
+**Syntax:**
+
+     fit mood <emoticon>
+
+**Examples:**
+
+     fit mood :P
+
 ### Undo
 
 If an error is made, you can revert the most recent log entry with the `fit undo` command. This command will remove the last line from the fit.log file.
