@@ -51,6 +51,7 @@ To store changes in your emotional state, you can use the `fit mood` command. Em
     :))) - Extremely Happy
     >:[  - Angry
     :'(  - Crying
+    X(   - Tired   
     :<   - Disappointed
     :S   - Confused
     :O   - Surprised
