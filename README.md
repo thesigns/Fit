@@ -2,7 +2,7 @@
 
 *version 0.3*
 
-Fit is a free CLI (Command Line Interface) application developed in C# designed to store personal metrics such as weight and height, with plans to include additional data pertaining to physical and mental health and well-being in the future.
+Fit is a free CLI (Command Line Interface) application developed in C# designed to store personal metrics such as weight, height and emotions, with plans to include additional data pertaining to physical and mental health and well-being in the future.
 
 Future updates will introduce features for generating charts from stored data, exporting functionalities, and more.
 
