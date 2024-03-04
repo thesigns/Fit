@@ -1,4 +1,6 @@
-﻿namespace Fit.Commands;
+﻿using Fit.Measures;
+
+namespace Fit.Commands;
 
 public class Init : Command
 {
@@ -33,15 +35,15 @@ public class Init : Command
         {
             var birthTick = Units.GetTick(args[0]);
             var sex = Units.GetSex(args[1]);
-            var height = Units.GetMeasurement<Units.Length>(args[2]);
-            var weight = Units.GetMeasurement<Units.Mass>(args[3]);
-            var bmi = Units.GetBmi(weight, height);
+            var height = new Length(args[2]);
+            var weight = new Mass(args[3]);
+            var bmi = Units.GetBmi(weight.Value(Mass.Unit.kg), height.Value(Length.Unit.m));
             var bmiDescription = Units.GetBmiDescription(bmi);
 
             Console.Write("Initializing Fit repository for a ");
             Console.WriteLine($"{Units.YearsSince(birthTick)} years old {sex.ToString().ToLower()}.");
-            Console.WriteLine($"Height: {height * 100} cm");
-            Console.WriteLine($"Weight: {weight} kg");
+            Console.WriteLine($"Height: {height.Value(Length.Unit.cm)} cm");
+            Console.WriteLine($"Weight: {weight.Value(Mass.Unit.kg)} kg");
             Console.WriteLine($"BMI: {bmi} ({bmiDescription})");
         }
         catch (Exception e)
@@ -74,8 +76,8 @@ public class Init : Command
         {
             var birthTick = Units.GetTick(args[0]);
             var sex = Units.GetSex(args[1]);
-            var height = Units.GetMeasurement<Units.Length>(args[2]);
-            var weight = Units.GetMeasurement<Units.Mass>(args[3]);
+            var height = new Length(args[2]);
+            var weight = new Mass(args[3]);
             fit.Birth = birthTick;
             fit.Sex = sex;
             fit.Heights.Add((tick, height));

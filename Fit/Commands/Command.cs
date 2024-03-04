@@ -6,7 +6,7 @@ public abstract class Command
                                       Usage:
                                           fit <command> [<arguments>]
                                       Commands:
-                                          help, init, height, weight, undo
+                                          help, init, height, weight, mood, undo
                                       """;
 
     public abstract string Execute(List<string> args, Repo repo);

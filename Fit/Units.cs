@@ -1,32 +1,14 @@
 ﻿using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace Fit;
 
-public static partial class Units
+public static class Units
 {
-   
-    [GeneratedRegex(@"^(\d*[.,]?\d*)([a-zA-Z]+)$")]
-    private static partial Regex SplitMeasurementRegex();
     
     public enum Sex
     {
         Male,
         Female,
-    }
-    
-    public enum Length
-    {
-        Mm = 1000,
-        Cm = 100,
-        M = 1,
-    }
-
-    public enum Mass
-    {
-        G = 1000,
-        Dag = 100,
-        Kg = 1,
     }
     
     public enum Mood
@@ -62,23 +44,6 @@ public static partial class Units
         };
     }
     
-    public static double GetMeasurement<TUnitsEnum>(string str) where TUnitsEnum : struct, Enum
-    {
-        var match = SplitMeasurementRegex().Match(str);
-        if (!match.Success)
-        {
-            throw new FormatException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
-        }
-        var numericPart = match.Groups[1].Value.Replace(',', '.');
-        var unitPart = match.Groups[2].Value;
-        var number = double.Parse(numericPart, CultureInfo.InvariantCulture);
-        if (Enum.TryParse<TUnitsEnum>(unitPart, true, out var lengthUnit))
-        {
-            var unitValue = Convert.ToInt32(lengthUnit);
-            return Math.Round(number / unitValue, 3);
-        }
-        throw new FormatException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
-    }
    
     public static double GetBmi(double weightKg, double heightM)
     {

@@ -1,4 +1,7 @@
-﻿namespace Fit.Commands;
+﻿using System.Globalization;
+using Fit.Measures;
+
+namespace Fit.Commands;
 
 public class Height : Command
 {
@@ -27,10 +30,18 @@ public class Height : Command
             Command.Execute("help height", repo);
             return "";
         }
-        
         try
         {
-            var weight = Units.GetMeasurement<Units.Mass>(args[0]);
+            var fit = new Fit(repo);
+            var previous = fit.Heights.Last();
+
+            var height = new Length(args[0]);
+            
+            
+            Console.WriteLine($"Previous height: {previous.height.Value(Length.Unit.cm)} cm ({Units.TicksToDate(previous.tick)})");
+            var differenceValue = Math.Round(height.Value(Length.Unit.cm) - previous.height.Value(Length.Unit.cm), 3);
+            var difference = differenceValue > 0 ? "+" + differenceValue : differenceValue.ToString(CultureInfo.CurrentCulture);
+            Console.WriteLine($"New height: {height.Value(Length.Unit.cm)} cm [{difference} cm] ({Units.TicksToDate(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {
@@ -38,16 +49,6 @@ public class Height : Command
             Command.Execute("help height", repo);
             return "";            
         }
-        
-        
-        
-        var height = Units.GetMeasurement<Units.Length>(args[0]);
-        if (height < 0)
-        {
-            Command.Execute("help height", repo);
-            return "";
-        }
-        
         return ToCommandLine(args);
     }
     
@@ -59,7 +60,7 @@ public class Height : Command
         }
         try
         {
-            var height = Units.GetMeasurement<Units.Length>(args[0]);
+            var height = new Length(args[0]);
             fit.Heights.Add((tick, height));
         }
         catch
