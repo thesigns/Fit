@@ -2,7 +2,7 @@
 
 namespace Fit;
 
-public static class EnumExtensions
+public static class Extensions
 {
     
     /// <summary>
