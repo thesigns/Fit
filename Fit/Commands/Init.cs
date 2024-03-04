@@ -63,4 +63,27 @@ public class Init : Command
         Console.WriteLine("Fit repository initialized.");
         return ToCommandLine(args);
     }
+    
+    public override void ApplyToFit(long tick, string command, List<string> args, Fit fit)
+    {
+        if (args.Count < 4)
+        {
+            throw new ArgumentException("Too few args.");
+        }
+        try
+        {
+            var birthTick = Units.GetTick(args[0]);
+            var sex = Units.GetSex(args[1]);
+            var height = Units.GetMeasurement<Units.Length>(args[2]);
+            var weight = Units.GetMeasurement<Units.Mass>(args[3]);
+            fit.Birth = birthTick;
+            fit.Sex = sex;
+            fit.Height.Add((tick, height));
+            fit.Weight.Add((tick, weight));
+        }
+        catch
+        {
+            throw new FormatException("Invalid measurement.");
+        }
+    }
 }

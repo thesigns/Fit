@@ -1,4 +1,6 @@
-﻿namespace Fit.Commands;
+﻿using System.Globalization;
+
+namespace Fit.Commands;
 
 public class Weight : Command
 {
@@ -29,7 +31,13 @@ public class Weight : Command
         }
         try
         {
+            var fit = new Fit(repo);
+            var previous = fit.Weight.Last();
             var weight = Units.GetMeasurement<Units.Mass>(args[0]);
+            Console.WriteLine($"Previous weight: {previous.weight} kg ({Units.TicksToDate(previous.tick)})");
+            var differenceValue = Math.Round(weight - previous.weight, 3);
+            var difference = differenceValue > 0 ? "+" + differenceValue : differenceValue.ToString(CultureInfo.CurrentCulture);
+            Console.WriteLine($"New weight: {weight} kg [{difference} kg] ({Units.TicksToDate(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {
@@ -38,5 +46,22 @@ public class Weight : Command
             return "";            
         }
         return ToCommandLine(args);
+    }
+
+    public override void ApplyToFit(long tick, string command, List<string> args, Fit fit)
+    {
+        if (args.Count != 1)
+        {
+            throw new ArgumentException("Just one arg required.");
+        }
+        try
+        {
+            var weight = Units.GetMeasurement<Units.Mass>(args[0]);
+            fit.Weight.Add((tick, weight));
+        }
+        catch
+        {
+            throw new FormatException("Invalid measurement.");
+        }
     }
 }

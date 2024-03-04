@@ -29,13 +29,15 @@ public static partial class Units
         Kg = 1,
     }
     
-    public static Sex GetSex(string str)
+    public static Sex GetSex(string sexString)
     {
-        return str.ToLower() switch
+        return sexString.ToLower() switch
         {
-            "male" or "m" => Sex.Male,
-            "female" or "f" => Sex.Female,
-            _ => throw new ArgumentException("Invalid sex format.")
+            "male" => Sex.Male,
+            "m" => Sex.Male,
+            "female" => Sex.Female,
+            "f" => Sex.Female,
+            _ => throw new FormatException("Invalid sex string format.")
         };
     }
     
@@ -44,7 +46,7 @@ public static partial class Units
         var match = SplitMeasurementRegex().Match(str);
         if (!match.Success)
         {
-            throw new ArgumentException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
+            throw new FormatException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
         }
         var numericPart = match.Groups[1].Value.Replace(',', '.');
         var unitPart = match.Groups[2].Value;
@@ -54,7 +56,7 @@ public static partial class Units
             var unitValue = Convert.ToInt32(lengthUnit);
             return Math.Round(number / unitValue, 3);
         }
-        throw new ArgumentException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
+        throw new FormatException($"Invalid {typeof(TUnitsEnum).Name} measurement format.");
     }
    
     public static double GetBmi(double weightKg, double heightM)
@@ -90,7 +92,7 @@ public static partial class Units
         {
             return dateValue.Ticks;
         }
-        throw new ArgumentException("Invalid date format.");
+        throw new FormatException("Invalid datetime format.");
     }
     
     public static string TicksToDate(long ticks, string format = "yyyy.MM.dd HH:mm")

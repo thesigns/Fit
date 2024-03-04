@@ -50,4 +50,21 @@ public class Height : Command
         
         return ToCommandLine(args);
     }
+    
+    public override void ApplyToFit(long tick, string command, List<string> args, Fit fit)
+    {
+        if (args.Count != 1)
+        {
+            throw new ArgumentException("Just one arg required.");
+        }
+        try
+        {
+            var height = Units.GetMeasurement<Units.Length>(args[0]);
+            fit.Height.Add((tick, height));
+        }
+        catch
+        {
+            throw new FormatException("Invalid measurement.");
+        }
+    }
 }

@@ -30,41 +30,60 @@ public class Repo(string startDirectory, string name)
         using (File.Create(LogPath)) {}
     }
     
-    public bool Exists()
-    {
-        return Directory.Exists(Path);
-    }
-    
-    public bool ExistsInDir(string path)
-    {
-        return Directory.Exists(System.IO.Path.Combine(path, Name));
-    }
+    public bool Exists() => Directory.Exists(Path);
+
+    public bool ExistsInDir(string path) => Directory.Exists(System.IO.Path.Combine(path, Name));
 
     public void Log(string text)
     {
         if (string.IsNullOrEmpty(text)) return;
         var tick = DateTime.UtcNow.Ticks;
         var logContent = $"{tick} {text}";
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"Adding log: '{logContent}'");
-        Console.ForegroundColor = ConsoleColor.Gray;
         var fi = new FileInfo(LogPath);
         var newLine = fi.Length > 0 ? "\n" : "log.fit|1\n";
         File.AppendAllText(LogPath, newLine + logContent);
     }
 
-    public void UndoLog()
+    public string UndoLog()
     {
         var lines = File.ReadAllLines(LogPath);
         if (lines.Length > 0)
         {
             var lastLine = lines.Last();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Removing log: '{lastLine}'");
-            Console.ForegroundColor = ConsoleColor.Gray;
             var content = string.Join('\n', lines.Take(lines.Length - 1).ToArray()).Trim();
             File.WriteAllText(LogPath, string.Empty);
             File.AppendAllText(LogPath, content);
+            return lastLine;
         }
+        return "";
     }
+
+    public List<string> GetLog(long fromTick = 0, long untilTick = -1)
+    {
+        if (untilTick == -1)
+        {
+            untilTick = DateTime.UtcNow.Ticks;
+        }
+        var logLines = new List<string>();
+        foreach (var line in File.ReadLines(LogPath))
+        {
+            var spaceIndex = line.IndexOf(' ');
+            if (spaceIndex <= 0) continue;
+            var tickPart = line[..spaceIndex];
+            if (!long.TryParse(tickPart, out var tick) || tick < fromTick || tick > untilTick) continue;
+            logLines.Add(line);
+        }
+        return logLines;
+    }
+    
+    public static (long tick, string commandLine) SplitLogLine(string logLine)
+    {
+        var spaceIndex = logLine.IndexOf(' ');
+        if (spaceIndex < 0) throw new FormatException("Invalid log line format.");
+        var tickPart = logLine[..spaceIndex];
+        var commandLine = logLine[(spaceIndex + 1)..];
+        if (!long.TryParse(tickPart, out var tick)) throw new FormatException("Invalid log line format.");
+        return (tick, commandLine);
+    }
+    
 }

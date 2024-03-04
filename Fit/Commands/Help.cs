@@ -43,4 +43,9 @@ public class Help : Command
         }
         return "";
     }
+    
+    public override void ApplyToFit(long tick, string command, List<string> args, Fit fit)
+    {
+        
+    }
 }

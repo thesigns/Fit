@@ -26,7 +26,18 @@ public class Undo : Command
             Command.Execute("help undo", repo);
             return "";
         }
-        repo.UndoLog();
+        var removed = repo.UndoLog();
+        if (!string.IsNullOrEmpty(removed))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Removed log: '{removed}'");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
         return "";
+    }
+    
+    public override void ApplyToFit(long tick, string command, List<string> args, Fit fit)
+    {
+        
     }
 }
