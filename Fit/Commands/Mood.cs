@@ -17,6 +17,7 @@ public class Mood : Command
                                            :))) - Extremely Happy
                                            >:[  - Angry
                                            :'(  - Crying
+                                           X(   - Tired   
                                            :<   - Disappointed
                                            :S   - Confused
                                            :O   - Surprised
