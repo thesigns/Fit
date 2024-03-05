@@ -1,6 +1,6 @@
 # Fit
 
-*version 0.4*
+*version 0.4.1*
 
 Fit is a free CLI (Command Line Interface) application developed in C# designed to store personal metrics such as weight, height and emotions, with plans to include additional data pertaining to physical and mental health and well-being in the future.
 
@@ -45,7 +45,7 @@ To store changes in your emotional state, you can use the `fit mood` command. Em
     :((( - Extremely Sad
     :((  - Very Sad
     :(   - Sad
-    :|   - Indifferet
+    :I   - Indifferent
     :)   - Happy
     :))  - Very Happy
     :))) - Extremely Happy
