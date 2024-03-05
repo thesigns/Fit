@@ -11,7 +11,7 @@ public class Mood : Command
                                            :((( - Extremely Sad
                                            :((  - Very Sad
                                            :(   - Sad
-                                           :|   - Indifferet
+                                           :|   - Indifferent
                                            :)   - Happy
                                            :))  - Very Happy
                                            :))) - Extremely Happy
