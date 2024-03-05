@@ -1,10 +1,10 @@
 # Fit
 
-*version 0.4.1*
+*version 0.5*
 
-Fit is a free CLI (Command Line Interface) application developed in C# designed to store personal metrics such as weight, height and emotions, with plans to include additional data pertaining to physical and mental health and well-being in the future.
+Fit is a free CLI (Command Line Interface) application developed in C#, designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
 
-Future updates will introduce features for generating charts from stored data, exporting functionalities, and more.
+Among other things, future updates will introduce features for generating reports from stored data, exporting functionalities, and more.
 
 ## Usage
 
@@ -22,7 +22,7 @@ To start using Fit, execute the command `fit init`.
 
 Executing this command creates a Fit repository in the current directory and stores the initial values. For convenience, you may execute this command in the highest-level directory you prefer. Fit commands will operate in all subdirectories within this hierarchy.
 
-**Currently, only the metric system is supported, and you must specify the unit with every value, without any spaces.**
+**Both metric and imperial unit system is supported. You must specify the unit abbreviation with every value, without any spaces.**
 
 ### Storing Weight and Height
 
@@ -40,8 +40,9 @@ To store changes in your weight or height (noting that height changes are less f
 
 ### Storing Mood
 
-To store changes in your emotional state, you can use the `fit mood` command. Emotions are stored using traditional western emoticons. Allowed emoticons:
+To store changes in your emotional state, you can use the `fit emo` command. Emotions are stored using traditional western emoticons. Allowed emoticons:
 
+    :?   - Unknown
     :((( - Extremely Sad
     :((  - Very Sad
     :(   - Sad
@@ -51,21 +52,26 @@ To store changes in your emotional state, you can use the `fit mood` command. Em
     :))) - Extremely Happy
     >:[  - Angry
     :'(  - Crying
-    X(   - Tired   
+    X(   - Tired
     :<   - Disappointed
+    *)   - Focused
+    @(   - Distracted   
     :S   - Confused
     :O   - Surprised
     :P   - Playful
+    :D   - Laughing
     :*   - Affectionate
     <3   - In Love
 
+Each emotion is assigned a value from -5 (worst) to 5 (best), which will be used in the future to rank emotional changes.
+
 **Syntax:**
 
-     fit mood <emoticon>
+     fit emo <emoticon>
 
 **Examples:**
 
-     fit mood :P
+     fit emo :P
 
 ### Undo
 

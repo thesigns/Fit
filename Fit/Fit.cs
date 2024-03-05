@@ -9,7 +9,7 @@ public class Fit
     public Units.Sex Sex { get; set; }
     public List<(long tick, Length height)> Heights { get; set; } = [];
     public List<(long tick, Mass weight)> Weights { get; set; } = [];
-    public List<(long tick, Units.Mood mood)> Moods { get; set; } = [];
+    public List<(long tick, Mood mood)> Moods { get; set; } = [];
 
 
     public Fit(Repo repo)

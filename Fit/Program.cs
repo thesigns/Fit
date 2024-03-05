@@ -1,6 +1,4 @@
 ﻿using Fit.Commands;
-using Fit;
-using Fit.Measures;
 
 namespace Fit;
 

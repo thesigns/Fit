@@ -6,7 +6,7 @@ public abstract class Command
                                       Usage:
                                           fit <command> [<arguments>]
                                       Commands:
-                                          help, init, height, weight, mood, undo
+                                          help, init, height, weight, emo, undo
                                       """;
 
     public abstract string Execute(List<string> args, Repo repo);
@@ -48,8 +48,8 @@ public abstract class Command
             case "weight":
                 logLine = new Weight().Execute(args, repo);
                 break;
-            case "mood":
-                logLine = new Mood().Execute(args, repo);
+            case "emo":
+                logLine = new Emo().Execute(args, repo);
                 break;
             case "undo":
                 logLine = new Undo().Execute(args, repo);
@@ -70,8 +70,8 @@ public abstract class Command
             case "height":
                 new Height().ApplyToFit(tick, command,args, fit);
                 return;
-            case "mood":
-                new Mood().ApplyToFit(tick, command,args, fit);
+            case "emo":
+                new Emo().ApplyToFit(tick, command,args, fit);
                 return;
             case "weight":
                 new Weight().ApplyToFit(tick, command,args, fit);

@@ -11,27 +11,6 @@ public static class Units
         Female,
     }
     
-    public enum Mood
-    {
-        None,
-        ExtremelySad,
-        VerySad,
-        Sad,
-        Indifferent,
-        Happy,
-        VeryHappy,
-        ExtremelyHappy,
-        Angry,
-        Crying,
-        Tired,
-        Disappointed,
-        Confused,
-        Surprised,
-        Playful,
-        Affectionate,
-        InLove,
-    }
-    
     public static Sex GetSex(string sexString)
     {
         return sexString.ToLower() switch
@@ -64,56 +43,6 @@ public static class Units
             _ => "obese class 3"
         };
     }
-    
-    public static Mood GetMood(string mood)
-    {
-        return mood switch
-        {
-            ":(((" => Mood.ExtremelySad,
-            ":((" => Mood.VerySad,
-            ":(" => Mood.Sad,
-            ":I" => Mood.Indifferent,
-            ":)" => Mood.Happy,
-            ":))" => Mood.VeryHappy,
-            ":)))" => Mood.ExtremelyHappy,
-            ">:[" => Mood.Angry,
-            ":'(" => Mood.Crying,
-            "X(" => Mood.Tired,
-            ":<" => Mood.Disappointed,
-            ":S" => Mood.Confused,
-            ":O" => Mood.Surprised,
-            ":P" => Mood.Playful,
-            ":*" => Mood.Affectionate,
-            "<3" => Mood.InLove,
-            _ => throw new FormatException("Invalid mood format.")
-        };
-    }
-    
-    public static string GetMoodEmoticon(Mood mood)
-    {
-        return mood switch
-        {
-            Mood.None => "?",
-            Mood.ExtremelySad => ":(((",
-            Mood.VerySad => ":((",
-            Mood.Sad => ":(",
-            Mood.Indifferent => ":I",
-            Mood.Happy => ":)",
-            Mood.VeryHappy => ":))",
-            Mood.ExtremelyHappy => ":)))",
-            Mood.Angry => ">:(",
-            Mood.Crying => ":'(",
-            Mood.Tired => "X(",
-            Mood.Disappointed => ":<",
-            Mood.Confused => ":S",
-            Mood.Surprised => ":O",
-            Mood.Playful => ":P",
-            Mood.Affectionate => ":*",
-            Mood.InLove => "<3",
-            _ => throw new ArgumentOutOfRangeException(nameof(mood), mood, null)
-        };
-    }
-    
 
     public static long GetTick(string timeString)
     {

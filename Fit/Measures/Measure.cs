@@ -3,61 +3,90 @@ using System.Text.RegularExpressions;
 
 namespace Fit.Measures;
 
-public partial class Measure<T, TUnitEnum> where T : Measure<T, TUnitEnum>, IMeasure<TUnitEnum> where TUnitEnum: struct, Enum
+public partial class Measure<T, TUnitEnum> where T : Measure<T, TUnitEnum>, IMeasure<TUnitEnum>, new() where TUnitEnum: struct, Enum
 {
-    [GeneratedRegex(@"^-?(\d*[.,]?\d*)([a-zA-Z]+)$")]
-    private static partial Regex SplitMeasureRegex();
+    private double Value { get; init; }
 
-    private double BaseValue { get; }
+    protected Measure()
+    {
+    }
 
     protected Measure(string notation)
     {
-        var (valueInUnit, unit) = SplitMeasureNotation(notation);
         if (this is not T measure)
         {
-            throw new Exception($"Not a {typeof(T).Name} measure.");
+            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
         }
-        BaseValue = valueInUnit * Convert.ToInt32(measure.BaseUnit) / Convert.ToInt32(unit);
-    }
-    
-    public double Value(TUnitEnum unit)
-    {
-        if (this is not T measure)
-        {
-            throw new Exception($"Not a {typeof(T).Name} measure.");
-        }
-        return BaseValue * Convert.ToInt32(unit) / Convert.ToInt32(measure.BaseUnit);
-    }
-    
-    public double Value(string unitString)
-    {
-        if (this is not T measure)
-        {
-            throw new Exception($"Not a {typeof(T).Name} measure.");
-        }
-        if (Enum.TryParse<TUnitEnum>(unitString, true, out var unit))
-        {
-            return BaseValue * Convert.ToInt32(unit) / Convert.ToInt32(measure.BaseUnit);
-        }
-        throw new FormatException($"Error: {unitString} is not a {typeof(T).Name} unit.");
+        var parsedMeasures = ParseMeasure(notation);
+        Value = Sum(parsedMeasures, measure.BaseUnit);
     }
 
-    private static (double valueInUnit, TUnitEnum unit) SplitMeasureNotation(string notation)
+    [GeneratedRegex(@"(-?\d+([.,]\d+)?)([a-zA-Z]+)")]
+    private static partial Regex MeasureRegex();
+    
+    private static List<(double value, TUnitEnum unit)> ParseMeasure(string notation)
     {
-        var match = SplitMeasureRegex().Match(notation);
-        if (!match.Success)
+        var matches = MeasureRegex().Matches(notation);
+        if (matches.Count == 0)
         {
             throw new FormatException($"Invalid {typeof(T).Name} measure format.");
         }
-        var numericPart = match.Groups[1].Value.Replace(',', '.');
-        var unitPart = match.Groups[2].Value;
-        var valueInUnit = double.Parse(numericPart, CultureInfo.InvariantCulture);
-        
-        if (Enum.TryParse<TUnitEnum>(unitPart, true, out var unit))
+        var valuesUnits = new List<(double value, TUnitEnum unit)>();
+        foreach (Match match in matches)
         {
-            return (valueInUnit, unit);
+            var valuePart = match.Groups[1].Value.Replace(',', '.');
+            var unitPart = match.Groups[3].Value;
+            var parsedValue = double.TryParse(valuePart, NumberStyles.Any, CultureInfo.InvariantCulture, out var value);
+            var parsedUnit = Enum.TryParse<TUnitEnum>(unitPart, true, out var unit);
+            if (!parsedValue || !parsedUnit)
+            {
+                throw new FormatException($"Invalid {typeof(T).Name} measure format.");
+            }
+            valuesUnits.Add((value, unit));
         }
-        throw new FormatException($"Invalid {typeof(T).Name} measure format.");
+        return valuesUnits;
+    }
+
+    private double Sum(List<(double value, TUnitEnum unit)> valuesUnits, TUnitEnum resultUnit)
+    {
+        var result = 0.0;
+        if (this is not T measure)
+        {
+            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
+        }
+        foreach (var vu in valuesUnits)
+        {
+            result += vu.value * measure.GetBaseValue(vu.unit) /  measure.GetBaseValue(resultUnit);
+        }
+        return result;
     }
     
+    public double GetValue(TUnitEnum unit)
+    {
+        if (this is not T measure)
+        {
+            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
+        }
+        return Value * measure.GetBaseValue(measure.BaseUnit) / measure.GetBaseValue(unit);
+    }
+    
+    public override string ToString()
+    {
+        if (this is not T measure)
+        {
+            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
+        }
+        return $"{Math.Round(Value, 3)} {measure.BaseUnit}";
+    }
+    
+    public static T operator -(Measure<T, TUnitEnum> measure1, Measure<T, TUnitEnum> measure2)
+    {
+        var value = measure1.Value - measure2.Value;
+        T newValue = new()
+        {
+            Value = value
+        };
+        return newValue;
+    }
+
 }
