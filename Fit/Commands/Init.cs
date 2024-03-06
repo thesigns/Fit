@@ -38,13 +38,12 @@ public class Init : Command
             var sex = new Sex(args[1]);
             var height = new Length(args[2]);
             var weight = new Mass(args[3]);
-            var bmi = Units.GetBmi(weight.GetValue(Mass.Unit.Kilogram), height.GetValue(Length.Unit.Metre));
-            var bmiDescription = Units.GetBmiDescription(bmi);
+            var bmi = Bmi.GetValue(weight, height);
             Console.Write("Initializing Fit repository for a ");
             Console.WriteLine($"{Units.YearsSince(birthTick)} years old {sex}.");
             Console.WriteLine($"Height: {height.GetValue(Length.Unit.Centimetre)} cm");
             Console.WriteLine($"Weight: {weight.GetValue(Mass.Unit.Kilogram)} kg");
-            Console.WriteLine($"BMI: {bmi} ({bmiDescription})");
+            Console.WriteLine($"BMI: {bmi} ({Bmi.GetDescription(bmi)})");
         }
         catch (Exception e)
         {

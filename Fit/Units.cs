@@ -5,26 +5,6 @@ namespace Fit;
 public static class Units
 {
     
-    public static double GetBmi(double weightKg, double heightM)
-    {
-        return Math.Round(weightKg / (heightM * heightM), 1);
-    }
-
-    public static string GetBmiDescription(double bmi)
-    {
-        return bmi switch
-        {
-            < 16 => "severe underweight",
-            < 17 => "moderate underweight",
-            < 18.5 => "mild underweight",
-            < 25 => "normal weight",
-            < 30 => "overweight",
-            < 35 => "obese class 1",
-            < 40 => "obese class 2",
-            _ => "obese class 3"
-        };
-    }
-
     public static long GetTick(string timeString)
     {
         string[] formats = [
