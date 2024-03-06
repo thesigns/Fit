@@ -57,10 +57,10 @@ public class Emo : Command
             var previous = fit.Moods.Count > 0 ? fit.Moods.Last().mood : null;
             if (previous != null)
             {
-                Console.WriteLine($"Previous mood: {previous} ({Units.TicksToDate(fit.Moods.Last().tick)})");                
+                Console.WriteLine($"Previous mood: {previous} ({Time.TicksToDate(fit.Moods.Last().tick)})");                
             }
             var currentMood = new Mood(args[0]);
-            Console.WriteLine($"Current mood: {currentMood} ({Units.TicksToDate(DateTime.UtcNow.Ticks)})");
+            Console.WriteLine($"Current mood: {currentMood} ({Time.TicksToDate(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {
