@@ -5,25 +5,6 @@ namespace Fit;
 public static class Units
 {
     
-    public enum Sex
-    {
-        Male,
-        Female,
-    }
-    
-    public static Sex GetSex(string sexString)
-    {
-        return sexString.ToLower() switch
-        {
-            "male" => Sex.Male,
-            "m" => Sex.Male,
-            "female" => Sex.Female,
-            "f" => Sex.Female,
-            _ => throw new FormatException("Invalid sex string format.")
-        };
-    }
-    
-   
     public static double GetBmi(double weightKg, double heightM)
     {
         return Math.Round(weightKg / (heightM * heightM), 1);

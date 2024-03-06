@@ -1,4 +1,5 @@
-﻿using Fit.Commands;
+﻿using Fit.Attributes;
+using Fit.Commands;
 using Fit.Measures;
 
 namespace Fit;
@@ -6,7 +7,7 @@ namespace Fit;
 public class Fit
 {
     public long Birth { get; set; }
-    public Units.Sex Sex { get; set; }
+    public Sex Sex { get; set; }
     public List<(long tick, Length height)> Heights { get; set; } = [];
     public List<(long tick, Mass weight)> Weights { get; set; } = [];
     public List<(long tick, Mood mood)> Moods { get; set; } = [];

@@ -1,14 +1,8 @@
 ﻿namespace Fit.Measures;
 
-public interface IMeasure<TUnitEnum> where TUnitEnum : Enum
+public interface IMeasure<TUnit>
 {
-    TUnitEnum BaseUnit { get; }
-    double GetBaseValue(TUnitEnum unit);
-    //public static Dictionary<TUnitEnum, double> Amount => throw new NotImplementedException();
-    
-    
-    //public static TUnitEnum BaseUnit => throw new NotImplementedException();
-
-
-    //double ConvertToBaseUnit(double value, TUnitEnum unit);
+    public string GetAbbreviation(TUnit unit);
+    double GetBaseValue(TUnit unit);
+    TUnit? BaseUnit { get; }
 }

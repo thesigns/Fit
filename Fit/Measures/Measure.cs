@@ -3,7 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Fit.Measures;
 
-public partial class Measure<T, TUnitEnum> where T : Measure<T, TUnitEnum>, IMeasure<TUnitEnum>, new() where TUnitEnum: struct, Enum
+public abstract partial class Measure<TDerived, TUnit> : IMeasure<TUnit>
+    where TDerived : Measure<TDerived, TUnit>, IMeasure<TUnit>, new()
+    where TUnit : struct, Enum
 {
     private double Value { get; init; }
 
@@ -13,80 +15,83 @@ public partial class Measure<T, TUnitEnum> where T : Measure<T, TUnitEnum>, IMea
 
     protected Measure(string notation)
     {
-        if (this is not T measure)
-        {
-            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
-        }
         var parsedMeasures = ParseMeasure(notation);
-        Value = Sum(parsedMeasures, measure.BaseUnit);
+        Value = Sum(parsedMeasures, BaseUnit);
     }
-
+    
     [GeneratedRegex(@"(-?\d+([.,]\d+)?)([a-zA-Z]+)")]
     private static partial Regex MeasureRegex();
     
-    private static List<(double value, TUnitEnum unit)> ParseMeasure(string notation)
+    private List<(double value, TUnit unit)> ParseMeasure(string notation)
     {
         var matches = MeasureRegex().Matches(notation);
         if (matches.Count == 0)
         {
-            throw new FormatException($"Invalid {typeof(T).Name} measure format.");
+            throw new FormatException($"Invalid {typeof(TUnit)} notation format.");
         }
-        var valuesUnits = new List<(double value, TUnitEnum unit)>();
+        var valuesAndUnits = new List<(double value, TUnit unit)>();
         foreach (Match match in matches)
         {
             var valuePart = match.Groups[1].Value.Replace(',', '.');
             var unitPart = match.Groups[3].Value;
             var parsedValue = double.TryParse(valuePart, NumberStyles.Any, CultureInfo.InvariantCulture, out var value);
-            var parsedUnit = Enum.TryParse<TUnitEnum>(unitPart, true, out var unit);
-            if (!parsedValue || !parsedUnit)
+            var unit = GetUnit(unitPart);
+            if (!parsedValue)
             {
-                throw new FormatException($"Invalid {typeof(T).Name} measure format.");
+                throw new FormatException($"Invalid {typeof(TUnit)} notation format.");
             }
-            valuesUnits.Add((value, unit));
+            valuesAndUnits.Add((value, unit));
         }
-        return valuesUnits;
+        return valuesAndUnits;
     }
 
-    private double Sum(List<(double value, TUnitEnum unit)> valuesUnits, TUnitEnum resultUnit)
+    private double Sum(List<(double value, TUnit unit)> valuesAndUnits, TUnit resultUnit)
     {
         var result = 0.0;
-        if (this is not T measure)
+        foreach (var valueAndUnit in valuesAndUnits)
         {
-            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
-        }
-        foreach (var vu in valuesUnits)
-        {
-            result += vu.value * measure.GetBaseValue(vu.unit) /  measure.GetBaseValue(resultUnit);
+            result += valueAndUnit.value * GetBaseValue(valueAndUnit.unit) /  GetBaseValue(resultUnit);
         }
         return result;
     }
     
-    public double GetValue(TUnitEnum unit)
+    public double GetValue(TUnit unit, int roundTo = -1)
     {
-        if (this is not T measure)
+        if (roundTo >= 0)
         {
-            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
+            return Math.Round(Value * GetBaseValue(BaseUnit) / GetBaseValue(unit), roundTo);
         }
-        return Value * measure.GetBaseValue(measure.BaseUnit) / measure.GetBaseValue(unit);
+        return Value * GetBaseValue(BaseUnit) / GetBaseValue(unit);
     }
     
     public override string ToString()
     {
-        if (this is not T measure)
-        {
-            throw new Exception($"Object of type {typeof(T).Name} is not a Measure.");
-        }
-        return $"{Math.Round(Value, 3)} {measure.BaseUnit}";
+        return $"{Math.Round(Value, 3)} {BaseUnit}";
     }
     
-    public static T operator -(Measure<T, TUnitEnum> measure1, Measure<T, TUnitEnum> measure2)
+    public static TDerived operator -(Measure<TDerived, TUnit> measure1, Measure<TDerived, TUnit> measure2)
     {
         var value = measure1.Value - measure2.Value;
-        T newValue = new()
+        TDerived newValue = new()
         {
             Value = value
         };
         return newValue;
     }
 
+    public TUnit GetUnit(string abbreviation)
+    {
+        foreach (TUnit enumValue in Enum.GetValues(typeof(TUnit)))
+        {
+            if (abbreviation == GetAbbreviation(enumValue))
+            {
+                return enumValue;
+            }
+        }
+        throw new FormatException($"Invalid {typeof(TDerived)} unit abbreviation.");
+    }
+    
+    public abstract string GetAbbreviation(TUnit unit);
+    public abstract double GetBaseValue(TUnit unit);
+    public abstract TUnit BaseUnit { get; }
 }
