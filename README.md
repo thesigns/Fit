@@ -38,7 +38,7 @@ To store changes in your weight or height (noting that height changes are less f
      fit weight 107.6kg
      fit height 175.5cm
 
-### Storing Mood
+### Storing Emotions
 
 To store changes in your emotional state, you can use the `fit emo` command. Emotions are stored using traditional western emoticons. Allowed emoticons:
 
