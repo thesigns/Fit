@@ -40,7 +40,7 @@ public class Repo(string startDirectory, string name)
         var tick = DateTime.UtcNow.Ticks;
         var logContent = $"{tick} {text}";
         var fi = new FileInfo(LogPath);
-        var newLine = fi.Length > 0 ? "\n" : "log.fit|1\n";
+        var newLine = fi.Length > 0 ? "\n" : "log.fit|2\n";
         File.AppendAllText(LogPath, newLine + logContent);
     }
 
