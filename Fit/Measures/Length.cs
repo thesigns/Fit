@@ -1,6 +1,6 @@
 ﻿namespace Fit.Measures;
 
-public class Length : Measure<Length, Length.Unit>, IMeasure<Length.Unit>
+public class Length : Measure<Length, Length.Unit>
 {
     public override string GetAbbreviation(Unit unit) => Abbreviations[unit];
     public override double GetBaseValue(Unit unit) => BaseValues[unit];

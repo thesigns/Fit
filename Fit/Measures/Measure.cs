@@ -3,8 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace Fit.Measures;
 
-public abstract partial class Measure<TDerived, TUnit> : IMeasure<TUnit>
-    where TDerived : Measure<TDerived, TUnit>, IMeasure<TUnit>, new()
+public abstract partial class Measure<TDerived, TUnit>
+    where TDerived : Measure<TDerived, TUnit>, new()
     where TUnit : struct, Enum
 {
     private double Value { get; init; }
