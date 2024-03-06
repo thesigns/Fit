@@ -8,7 +8,6 @@ public class Mood : DescriptiveAttribute<Mood, Mood.State>
     public enum State
     {
         None,
-        Unknown,
         ExtremelySad,
         VerySad,
         Sad,
@@ -28,12 +27,12 @@ public class Mood : DescriptiveAttribute<Mood, Mood.State>
         Laughing,
         Affectionate,
         InLove,
+        Indescribable,
     }
 
     private static Dictionary<State, (string abbreviation, int value)> States { get; set; } = new()
     {
         { State.None, ("", 0)},
-        { State.Unknown, (":?", 0)},
         { State.ExtremelySad, (":(((", -5)},
         { State.VerySad, (":((", -4)},
         { State.Sad, (":(", -2)},
@@ -53,6 +52,7 @@ public class Mood : DescriptiveAttribute<Mood, Mood.State>
         { State.Laughing, (":D",  2)},
         { State.Affectionate, (":*",  4)},
         { State.InLove, ("<3", 4)},
+        { State.Indescribable, (":?", 0)},
     };
 
     public Mood(string notation) : base(notation)

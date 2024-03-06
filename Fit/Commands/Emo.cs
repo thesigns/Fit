@@ -11,7 +11,6 @@ public class Emo : Command
                                        Description:
                                            Stores current mood/emotion using emoticons as input.
                                        Allowed emoticons:
-                                           :?   - Unknown
                                            :((( - Extremely Sad
                                            :((  - Very Sad
                                            :(   - Sad
@@ -31,6 +30,7 @@ public class Emo : Command
                                            :D   - Laughing
                                            :*   - Affectionate
                                            <3   - In Love
+                                           :?   - Indescribable
                                        Example:
                                            fit emo :P
                                        """;
@@ -57,10 +57,10 @@ public class Emo : Command
             var previous = fit.Moods.Count > 0 ? fit.Moods.Last().mood : null;
             if (previous != null)
             {
-                Console.WriteLine($"Previous mood: {previous} ({Time.TicksToDate(fit.Moods.Last().tick)})");                
+                Console.WriteLine($"Previous mood: {previous} ({new Time(fit.Moods.Last().tick)})");                
             }
             var currentMood = new Mood(args[0]);
-            Console.WriteLine($"Current mood: {currentMood} ({Time.TicksToDate(DateTime.UtcNow.Ticks)})");
+            Console.WriteLine($"Current mood: {currentMood} ({new Time(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {

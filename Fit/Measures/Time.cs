@@ -2,10 +2,21 @@
 
 namespace Fit.Measures;
 
-public static class Time
+public class Time
 {
+    public long Value;
+
+    public Time(long tick)
+    {
+        Value = tick;
+    }
     
-    public static long GetTick(string timeString)
+    public Time(string notation)
+    {
+        Value = Parse(notation);
+    }
+    
+    private static long Parse(string timeNotation)
     {
         string[] formats = [
             "yyyy-M-d",
@@ -13,7 +24,7 @@ public static class Time
             "yyyy-MM-dd H:m",
             "yyyy.MM.dd H:m"
         ];
-        var success = DateTime.TryParseExact(timeString, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue);
+        var success = DateTime.TryParseExact(timeNotation, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue);
         if (success)
         {
             return dateValue.Ticks;
@@ -21,16 +32,23 @@ public static class Time
         throw new FormatException("Invalid datetime format.");
     }
     
-    public static string TicksToDate(long ticks, string format = "yyyy.MM.dd HH:mm")
+    public string ToString(string format)
     {
-        var dateTime = new DateTime(ticks).ToLocalTime();
+        var dateTime = new DateTime(Value).ToLocalTime();
         var formattedDate = dateTime.ToString(format, CultureInfo.CurrentCulture);
         return formattedDate;
     }
-   
-    public static int YearsSince(long ticks)
+
+    public override string ToString()
     {
-        var dateFromTicks = new DateTime(ticks).ToLocalTime();
+        var dateTime = new DateTime(Value).ToLocalTime();
+        var formattedDate = dateTime.ToString("yyyy.MM.dd HH:mm", CultureInfo.CurrentCulture);
+        return formattedDate;
+    }
+
+    public int YearsElapsed()
+    {
+        var dateFromTicks = new DateTime(Value).ToLocalTime();
         var currentDate = DateTime.Now.ToLocalTime();
         var years = currentDate.Year - dateFromTicks.Year;
         if (currentDate.Month < dateFromTicks.Month || (currentDate.Month == dateFromTicks.Month && currentDate.Day < dateFromTicks.Day))

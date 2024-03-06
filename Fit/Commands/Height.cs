@@ -38,10 +38,10 @@ public class Height : Command
             var height = new Length(args[0]);
             
             
-            Console.WriteLine($"Previous height: {previous.height.GetValue(Length.Unit.Centimetre)} cm ({Time.TicksToDate(previous.tick)})");
+            Console.WriteLine($"Previous height: {previous.height.GetValue(Length.Unit.Centimetre)} cm ({new Time(previous.tick)})");
             var differenceValue = Math.Round(height.GetValue(Length.Unit.Centimetre) - previous.height.GetValue(Length.Unit.Centimetre), 3);
             var difference = differenceValue > 0 ? "+" + differenceValue : differenceValue.ToString(CultureInfo.CurrentCulture);
-            Console.WriteLine($"New height: {Math.Round(height.GetValue(Length.Unit.Centimetre), 1)} cm [{difference} cm] ({Time.TicksToDate(DateTime.UtcNow.Ticks)})");
+            Console.WriteLine($"New height: {Math.Round(height.GetValue(Length.Unit.Centimetre), 1)} cm [{difference} cm] ({new Time(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {

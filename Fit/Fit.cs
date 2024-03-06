@@ -6,12 +6,11 @@ namespace Fit;
 
 public class Fit
 {
-    public long Birth { get; set; }
+    public Time Birth { get; set; }
     public Sex Sex { get; set; }
     public List<(long tick, Length height)> Heights { get; set; } = [];
     public List<(long tick, Mass weight)> Weights { get; set; } = [];
     public List<(long tick, Mood mood)> Moods { get; set; } = [];
-
 
     public Fit(Repo repo)
     {

@@ -1,6 +1,6 @@
 # Fit
 
-*version 0.6*
+*version 0.7*
 
 Fit is a free CLI (Command Line Interface) application developed in C#, designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
 
@@ -42,7 +42,6 @@ To store changes in your weight or height (noting that height changes are less f
 
 To store changes in your emotional state, you can use the `fit emo` command. Emotions are stored using traditional western emoticons. Allowed emoticons:
 
-    :?   - Unknown
     :((( - Extremely Sad
     :((  - Very Sad
     :(   - Sad
@@ -62,6 +61,7 @@ To store changes in your emotional state, you can use the `fit emo` command. Emo
     :D   - Laughing
     :*   - Affectionate
     <3   - In Love
+    :?   - Indescribable
 
 Each emotion is assigned a value from -5 (worst) to 5 (best), which will be used in the future to rank emotional changes.
 

@@ -38,10 +38,10 @@ public class Weight : Command
             var weight = new Mass(args[0]);
             
             
-            Console.WriteLine($"Previous weight: {previous.weight.GetValue(Mass.Unit.Kilogram)} kg ({Time.TicksToDate(previous.tick)})");
+            Console.WriteLine($"Previous weight: {previous.weight.GetValue(Mass.Unit.Kilogram)} kg ({new Time(previous.tick)})");
             var differenceValue = Math.Round(weight.GetValue(Mass.Unit.Kilogram) - previous.weight.GetValue(Mass.Unit.Kilogram), 3);
             var difference = differenceValue > 0 ? "+" + differenceValue : differenceValue.ToString(CultureInfo.CurrentCulture);
-            Console.WriteLine($"New weight: {Math.Round(weight.GetValue(Mass.Unit.Kilogram), 1)} kg [{difference} kg] ({Time.TicksToDate(DateTime.UtcNow.Ticks)})");
+            Console.WriteLine($"New weight: {Math.Round(weight.GetValue(Mass.Unit.Kilogram), 1)} kg [{difference} kg] ({new Time(DateTime.UtcNow.Ticks)})");
         }
         catch(Exception e)
         {
