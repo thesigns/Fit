@@ -1,4 +1,6 @@
-﻿namespace Fit.Commands;
+﻿using Fit.Repository;
+
+namespace Fit.Commands;
 
 public class Help : Command
 {

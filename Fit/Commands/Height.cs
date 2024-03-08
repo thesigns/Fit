@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Fit.Measures;
+using Fit.Repository;
 
 namespace Fit.Commands;
 
@@ -10,14 +11,14 @@ public class Height : Command
                                            fit height <height>
                                        Description:
                                            Stores current height.
-                                           You must specify units. Only metric system is supported.
+                                           You must specify units. Both metric and imperial system is supported.
                                        Example:
                                            fit height 175cm
                                        """;
     
     public override string Execute(List<string> args, Repo repo)
     {
-        if (!repo.Exists())
+        if (!repo.Exists)
         {
             Console.WriteLine("Fit repository doesn't exist. Use init command.");
             Console.WriteLine();

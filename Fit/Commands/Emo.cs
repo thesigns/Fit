@@ -1,5 +1,6 @@
 ﻿using Fit.Attributes;
 using Fit.Measures;
+using Fit.Repository;
 
 namespace Fit.Commands;
 
@@ -39,7 +40,7 @@ public class Emo : Command
     {
 
         
-        if (!repo.Exists())
+        if (!repo.Exists)
         {
             Console.WriteLine("Fit repository doesn't exist. Use init command.");
             return "";

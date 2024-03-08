@@ -1,8 +1,8 @@
 # Fit
 
-*version 0.7*
+*Version 0.9*
 
-*Note: this a "work in progress" personal project.*
+*Note: This is a very "work in progress" personal project. Version 0.9 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
 
 Fit is a free CLI (Command Line Interface) application developed in C#, designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
 
@@ -22,7 +22,7 @@ To start using Fit, execute the command `fit init`.
 
     fit init 1981.05.27 male 175cm 108.6kg
 
-Executing this command creates a Fit repository in the current directory and stores the initial values. For convenience, you may execute this command in the highest-level directory you prefer. Fit commands will operate in all subdirectories within this hierarchy.
+Executing this command creates a Fit repository in the current directory and stores some initial values. For convenience, you may execute this command in the highest-level directory you prefer. Fit commands will operate in all subdirectories within this hierarchy.
 
 **Both metric and imperial unit system is supported. You must specify the unit abbreviation with every value, without any spaces.**
 
@@ -77,7 +77,7 @@ Each emotion is assigned a value from -5 (worst) to 5 (best), which will be used
 
 ### Undo
 
-If an error is made, you can revert the most recent log entry with the `fit undo` command. This command will remove the last line from the fit.log file.
+If an error is made, you can revert the most recent log entry with the `fit undo` command. This command will *comment* the last uncommented line in the fit.log file. It does not remove anything, just comments out.
 
 **Syntax and Example:**
 

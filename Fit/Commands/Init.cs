@@ -1,5 +1,6 @@
 ﻿using Fit.Attributes;
 using Fit.Measures;
+using Fit.Repository;
 
 namespace Fit.Commands;
 
@@ -11,21 +12,14 @@ public class Init : Command
                                        Description:
                                            Initializes the Fit repository in the current directory.
                                            The date of birth should be in the YYYY-M-D format (leading zeroes are optional).
-                                           Sex should be "male" or "m" or "female" or "f".
-                                           Height and weight should be in metric system units, for example "cm" for centimetres.
-                                           Imperial system is not supported in the moment.
+                                           Sex should be "male" or "m", "female" or "f", "intersex" or "i".
+                                           Height and weight can be both in metric and imperial units.
                                        Example:
                                            fit init 1981.5.27 male 175cm 109kg
                                        """;
     
     public override string Execute(List<string> args, Repo repo)
     {
-        if (repo.ExistsInDir(Environment.CurrentDirectory))
-        {
-            Console.WriteLine($"There is a Fit repository ('{repo.Name}' subdirectory) in this directory already.");
-            return "";
-        }
-        
         if (args.Count < 4)
         {
             Command.Execute("help init", repo);
@@ -53,7 +47,7 @@ public class Init : Command
         }
         try
         {
-            repo.Create(Environment.CurrentDirectory);
+            repo.Create();
         }
         catch (Exception e)
         {

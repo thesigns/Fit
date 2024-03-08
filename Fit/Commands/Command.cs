@@ -1,4 +1,6 @@
-﻿namespace Fit.Commands;
+﻿using Fit.Repository;
+
+namespace Fit.Commands;
 
 public abstract class Command
 {
@@ -56,7 +58,11 @@ public abstract class Command
                 break;
 
         }
-        repo.Log(logLine);
+        if (string.IsNullOrEmpty(logLine))
+        {
+            return;
+        }
+        new Log(repo.FitLogPath, Repo.Version).Write(logLine);
     }
     
     public static void ApplyToFit(long tick, string commandLine, Fit fit)

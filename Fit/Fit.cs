@@ -1,6 +1,7 @@
 ﻿using Fit.Attributes;
 using Fit.Commands;
 using Fit.Measures;
+using Fit.Repository;
 
 namespace Fit;
 
@@ -14,13 +15,11 @@ public class Fit
 
     public Fit(Repo repo)
     {
-        var lines = repo.GetLog();
+        var log = new Log(repo.FitLogPath, Repo.Version);
+        var lines = log.GetLines();
         foreach (var line in lines)
         {
-            var (tick, commandLine) = Repo.SplitLogLine(line);
-            Command.ApplyToFit(tick, commandLine, this);
+           Command.ApplyToFit(line.tick, line.content, this);
         }
     }
-   
-    
 }

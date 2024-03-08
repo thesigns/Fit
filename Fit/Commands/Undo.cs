@@ -1,4 +1,6 @@
-﻿namespace Fit.Commands;
+﻿using Fit.Repository;
+
+namespace Fit.Commands;
 
 public class Undo : Command
 {
@@ -6,14 +8,14 @@ public class Undo : Command
                                         Usage:
                                             fit undo
                                         Description:
-                                            Removes the last log record from the Fit Repository.
+                                            Reverts (comments out) the last fit.log record in the Fit Repository.
                                         Example:
                                             fit undo
                                         """;
     
     public override string Execute(List<string> args, Repo repo)
     {
-        if (!repo.Exists())
+        if (!repo.Exists)
         {
             Console.WriteLine("Fit repository doesn't exist. Use init command.");
             Console.WriteLine();
@@ -26,11 +28,13 @@ public class Undo : Command
             Command.Execute("help undo", repo);
             return "";
         }
-        var removed = repo.UndoLog();
-        if (!string.IsNullOrEmpty(removed))
+
+        var log = new Log(repo.FitLogPath, Repo.Version);
+        var reverted = log.Undo();
+        if (!string.IsNullOrEmpty(reverted))
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Removed log: '{removed}'");
+            Console.WriteLine($"Reverted log: '{reverted}'");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
         return "";
