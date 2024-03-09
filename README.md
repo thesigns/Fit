@@ -1,6 +1,6 @@
 # Fit
 
-*Version 0.9*
+*Version 0.9.1*
 
 *Note: This is a very "work in progress" personal project. Version 0.9 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
 
@@ -59,7 +59,7 @@ To store changes in your emotional state, you can use the `fit emo` command. Emo
     @(   - Distracted   
     :S   - Confused
     :O   - Surprised
-    :P   - Playful
+    ;P   - Playful
     :D   - Laughing
     :*   - Affectionate
     <3   - In Love

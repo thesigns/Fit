@@ -7,34 +7,34 @@ namespace Fit.Commands;
 public class Emo : Command
 {
         public new static string Manual => """
-                                       Usage:
-                                           fit emo <emoticon>
-                                       Description:
-                                           Stores current mood/emotion using emoticons as input.
-                                       Allowed emoticons:
-                                           :((( - Extremely Sad
-                                           :((  - Very Sad
-                                           :(   - Sad
-                                           :I   - Indifferent
-                                           :)   - Happy
-                                           :))  - Very Happy
-                                           :))) - Extremely Happy
-                                           >:[  - Angry
-                                           :'(  - Crying
-                                           X(   - Tired
-                                           :<   - Disappointed
-                                           *)   - Focused
-                                           @(   - Distracted   
-                                           :S   - Confused
-                                           :O   - Surprised
-                                           :P   - Playful
-                                           :D   - Laughing
-                                           :*   - Affectionate
-                                           <3   - In Love
-                                           :?   - Indescribable
-                                       Example:
-                                           fit emo :P
-                                       """;
+                                           Usage:
+                                               fit emo <emoticon>
+                                           Description:
+                                               Stores current mood/emotion using emoticons as input.
+                                           Allowed emoticons:
+                                               :((( - Extremely Sad
+                                               :((  - Very Sad
+                                               :(   - Sad
+                                               :I   - Indifferent
+                                               :)   - Happy
+                                               :))  - Very Happy
+                                               :))) - Extremely Happy
+                                               >:[  - Angry
+                                               :'(  - Crying
+                                               X(   - Tired
+                                               :<   - Disappointed
+                                               *)   - Focused
+                                               @(   - Distracted   
+                                               :S   - Confused
+                                               :O   - Surprised
+                                               ;P   - Playful
+                                               :D   - Laughing
+                                               :*   - Affectionate
+                                               <3   - In Love
+                                               :?   - Indescribable
+                                           Example:
+                                               fit emo :P
+                                           """;
     
     public override string Execute(List<string> args, Repo repo)
     {

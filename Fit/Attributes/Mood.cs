@@ -48,7 +48,7 @@ public class Mood : DescriptiveAttribute<Mood, Mood.State>
         { State.Distracted, ("@(",  -2)},
         { State.Confused, (":S",  -1)},
         { State.Surprised, (":O",  1)},
-        { State.Playful, (":P",  1)},
+        { State.Playful, (";P",  1)},
         { State.Laughing, (":D",  2)},
         { State.Affectionate, (":*",  4)},
         { State.InLove, ("<3", 4)},
