@@ -6,6 +6,7 @@ public abstract class DescriptiveAttribute<TDerived, TState>
 {
     
     public abstract string GetAbbreviation(TState unit);
+    public abstract string GetDescription(TState unit);
     public abstract int GetValue(TState unit);
     
     public TState Value { get; set; }
