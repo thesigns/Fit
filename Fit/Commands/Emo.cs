@@ -28,6 +28,7 @@ public class Emo : Command
                                                :S   - Confused
                                                :O   - Surprised
                                                ;P   - Playful
+                                               <:)  - Partying
                                                :D   - Laughing
                                                :*   - Affectionate
                                                <3   - In Love
