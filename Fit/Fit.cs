@@ -7,6 +7,7 @@ namespace Fit;
 
 public class Fit
 {
+    public string Name { get; set; }
     public Time Birth { get; set; }
     public Sex Sex { get; set; }
     public List<(long tick, Length height)> Heights { get; set; } = [];

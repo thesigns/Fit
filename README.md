@@ -1,12 +1,10 @@
 # Fit
 
-*Version 0.10.0*
+*Version 0.11.0*
 
-*Note: This is a very "work in progress" personal project. Version 0.9 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
+*Note: This is a very "work in progress" personal project. Version 0.11.0 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
 
-Fit is a free CLI (Command Line Interface) application developed in C#, designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
-
-Among other things, future updates will introduce features for generating reports from stored data, exporting functionalities, and more.
+Fit is a free Command Line Interface application designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
 
 ## Usage
 
@@ -16,15 +14,15 @@ To start using Fit, execute the command `fit init`.
 
 **Syntax:** 
 
-    fit init <date-of-birth> <sex> <height> <weight>
+    fit init <name> <date-of-birth> <sex> <height> <weight>
 
 **Example:**
 
-    fit init 1981.05.27 male 175cm 108.6kg
+    fit init Jakub 1981.05.27 male 175cm 108.6kg
 
-Executing this command creates a Fit repository in the current directory and stores some initial values. For convenience, you may execute this command in the highest-level directory you prefer. Fit commands will operate in all subdirectories within this hierarchy.
+Executing this command creates a Fit repository in the current directory and stores initial values of the user. For convenience, you may execute this command in the highest-level directory you prefer. Fit commands will operate in all subdirectories within this hierarchy.
 
-**Both metric and imperial unit system is supported. You must specify the unit abbreviation with every value, without any spaces.**
+Both metric and imperial unit system is supported. You must specify the unit abbreviation with every value, without any spaces.
 
 ### Storing Weight and Height
 

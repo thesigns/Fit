@@ -8,9 +8,10 @@ public class Init : Command
 {
     public new static string Manual => """
                                        Usage:
-                                           fit init <date-of-birth> <sex> <height> <weight>
+                                           fit init <name> <date-of-birth> <sex> <height> <weight>
                                        Description:
                                            Initializes the Fit repository in the current directory.
+                                           Name should be your name, a single word. Space isn't allowed.
                                            The date of birth should be in the YYYY-M-D format (leading zeroes are optional).
                                            Sex should be "male" or "m", "female" or "f", "intersex" or "i".
                                            Height and weight can be both in metric and imperial units.
@@ -20,7 +21,7 @@ public class Init : Command
     
     public override string Execute(List<string> args, Repo repo)
     {
-        if (args.Count < 4)
+        if (args.Count < 5)
         {
             Command.Execute("help init", repo);
             return "";
@@ -28,12 +29,13 @@ public class Init : Command
 
         try
         {
-            var birthTick = new Time(args[0]);
-            var sex = new Sex(args[1]);
-            var height = new Length(args[2]);
-            var weight = new Mass(args[3]);
+            var name = args[0];
+            var birthTick = new Time(args[1]);
+            var sex = new Sex(args[2]);
+            var height = new Length(args[3]);
+            var weight = new Mass(args[4]);
             var bmi = Bmi.GetValue(weight, height);
-            Console.Write("Initializing Fit repository for a ");
+            Console.Write($"Initializing Fit repository for {name}, a ");
             Console.WriteLine($"{birthTick.YearsElapsed()} years old {sex}.");
             Console.WriteLine($"Height: {height.GetValue(Length.Unit.Centimetre)} cm");
             Console.WriteLine($"Weight: {weight.GetValue(Mass.Unit.Kilogram)} kg");
@@ -67,10 +69,12 @@ public class Init : Command
         }
         try
         {
-            var birthTick = new Time(args[0]);
-            var sex = new Sex(args[1]);
-            var height = new Length(args[2]);
-            var weight = new Mass(args[3]);
+            var name = args[0];
+            var birthTick = new Time(args[1]);
+            var sex = new Sex(args[2]);
+            var height = new Length(args[3]);
+            var weight = new Mass(args[4]);
+            fit.Name = name;
             fit.Birth = birthTick;
             fit.Sex = sex;
             fit.Heights.Add((tick, height));
