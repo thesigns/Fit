@@ -15,6 +15,8 @@ public class Time
     {
         Value = Parse(notation);
     }
+
+    public static long Now => DateTime.Now.ToLocalTime().Ticks;
     
     private static long Parse(string timeNotation)
     {
