@@ -4,6 +4,12 @@ namespace Fit.Measures;
 
 public class Time
 {
+    public const long Second = 10_000_000;
+    public const long Minute = Second * 60;
+    public const long Hour = Minute * 60;
+    public const long Day = Hour * 24;
+    public const long Week = Day * 7;
+    
     public long Value;
 
     public Time(long tick)
