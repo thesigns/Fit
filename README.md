@@ -1,8 +1,8 @@
 # Fit
 
-*Version 0.11.0*
+*Version 0.12.0*
 
-*Note: This is a very "work in progress" personal project. Version 0.11.0 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
+*Note: This is a very "work in progress" personal project. Version 0.12.0 introduces some changes in log.fit format which make the new version incompatible with repositories saved by the previous version. It is possible to fix the file manually. Sorry!*
 
 Fit is a free Command Line Interface application designed to store physical and mental personal metrics such as weight, height, and emotional states, with plans to include additional features pertaining to health and well-being in the future.
 
@@ -81,3 +81,15 @@ If an error is made, you can revert the most recent log entry with the `fit undo
 **Syntax and Example:**
 
      fit undo
+
+### Plot
+
+The `fit plot` command allows you to export Fit data to various charts and infographics. Well, at least in theory, right now only a simple linear chart of weight is supported. The charts are saved in charts directory, inside .fit repository.
+
+**Syntax:**
+
+     fit plot <chart-type>
+
+**Examples:**
+
+     fit plot weight

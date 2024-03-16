@@ -1,4 +1,6 @@
-﻿using Fit.Commands;
+﻿using Fit.Charts;
+using Fit.Commands;
+using Fit.Measures;
 using Fit.Repository;
 
 namespace Fit;

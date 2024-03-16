@@ -8,7 +8,7 @@ public abstract class Command
                                       Usage:
                                           fit <command> [<arguments>]
                                       Commands:
-                                          help, init, height, weight, emo, undo
+                                          help, init, height, weight, emo, undo, chart
                                       """;
 
     public abstract string Execute(List<string> args, Repo repo);
@@ -55,6 +55,9 @@ public abstract class Command
                 break;
             case "undo":
                 logLine = new Undo().Execute(args, repo);
+                break;
+            case "plot":
+                logLine = new Plot().Execute(args, repo);
                 break;
 
         }

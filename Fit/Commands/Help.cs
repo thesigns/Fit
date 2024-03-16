@@ -45,6 +45,9 @@ public class Help : Command
             case "undo":
                 Console.WriteLine(Undo.Manual);
                 break;
+            case "plot":
+                Console.WriteLine(Plot.Manual);
+                break;
         }
         return "";
     }

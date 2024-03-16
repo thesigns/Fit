@@ -1,15 +1,17 @@
-﻿using Fit.Exceptions;
+﻿using Fit.Charts;
+using Fit.Exceptions;
 
 namespace Fit.Repository;
 
 public class Repo(string startDirectory)
 {
-    public const int Version = 3;
+    public const int Version = 5;
     public const string Name = ".fit";
-    public const string FitLogName = "log.fit";
     
     public string CurrentPath { get; private set; } = FindDirectory(startDirectory, Name);
-    public string FitLogPath => Path.Combine(CurrentPath, FitLogName);
+    public string FitLogPath => Path.Combine(CurrentPath, "log.fit");
+    public string FitChartStylesPath => Path.Combine(CurrentPath, "charts.css");
+    public string FitChartsPath => Path.Combine(CurrentPath, "charts");
     public bool Exists => Directory.Exists(CurrentPath);
 
     private static string FindDirectory(string start, string dirName)
@@ -41,10 +43,15 @@ public class Repo(string startDirectory)
         }
         Directory.CreateDirectory(path);
         CurrentPath = path;
-        using (var streamWriter = new StreamWriter(FitLogPath, true))
+        using (var streamWriter = new StreamWriter(FitLogPath, false))
         {
             streamWriter.WriteLine($"#Header Version: {Version}");
         }
+        using (var streamWriter = new StreamWriter(FitChartStylesPath, false))
+        {
+            streamWriter.Write(Chart.DefaultStyles);
+        }
+        Directory.CreateDirectory(FitChartsPath);
     }
 
 }
