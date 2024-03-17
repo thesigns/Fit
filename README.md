@@ -49,19 +49,18 @@ To store changes in your emotional state, you can use the `fit emo` command. Emo
     :)   - Happy
     :))  - Very Happy
     :))) - Extremely Happy
-    >:[  - Angry
+    :[   - Angry
     :'(  - Crying
     X(   - Tired
-    :<   - Disappointed
+    :/   - Disappointed
     *)   - Focused
     @(   - Distracted   
     :S   - Confused
     :O   - Surprised
     ;P   - Playful
-    <:)  - Partying
     :D   - Laughing
     :*   - Affectionate
-    <3   - In Love
+    :**  - In Love
     :?   - Indescribable
 
 Each emotion is assigned a value from -5 (worst) to 5 (best), which will be used in the future to rank emotional changes.

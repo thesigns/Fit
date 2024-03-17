@@ -19,19 +19,18 @@ public class Emo : Command
                                                :)   - Happy
                                                :))  - Very Happy
                                                :))) - Extremely Happy
-                                               >:[  - Angry
+                                               :[   - Angry
                                                :'(  - Crying
                                                X(   - Tired
-                                               :<   - Disappointed
+                                               :/   - Disappointed
                                                *)   - Focused
                                                @(   - Distracted   
                                                :S   - Confused
                                                :O   - Surprised
                                                ;P   - Playful
-                                               <:)  - Partying
                                                :D   - Laughing
                                                :*   - Affectionate
-                                               <3   - In Love
+                                               :**  - In Love
                                                :?   - Indescribable
                                            Example:
                                                fit emo :P
